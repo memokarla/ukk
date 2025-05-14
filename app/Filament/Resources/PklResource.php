@@ -40,10 +40,6 @@ class PklResource extends Resource
                                                                 // siswa di sini merupakan nama relasi di App\Models\Pkl.php, jadi jika relasinya bernama hokya maka ->relationship('hokya', 'nama')
                                 ->native(false) // menonaktifkan tampilan dropdown bawaan browser
                                 ->columnSpan(2)
-                                ->unique(table: 'pkls', column: 'siswa_id', ignoreRecord: true)
-                                ->validationMessages([ // ini pesan error yang akan tampil jika user memasukkan nama yang sudah digunakan, agar lebih user friednly
-                                    'unique' => 'Siswa ini sudah memiliki data PKL',
-                                ])
                                 ->required(),
 
                             // industri_id

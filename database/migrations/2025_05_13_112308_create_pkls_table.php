@@ -19,8 +19,6 @@ return new class extends Migration
             $table->date('mulai');
             $table->date('selesai');
             $table->timestamps();
-
-            $table->unique('siswa_id'); // pastikan satu siswa hanya bisa memiliki satu PKL
         });
     }
 

@@ -14,6 +14,6 @@ class Siswa extends Model
     // relasi dengan pkl
     public function pkl()
     {
-        return $this->hasOne(Pkl::class);
+        return $this->hasMany(Pkl::class);
     }
 }

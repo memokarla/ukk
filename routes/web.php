@@ -14,4 +14,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/dataPkl',App\Livewire\Pkl\Index::class)->name('pkl');
+    Route::get('/tambahDataPkl',App\Livewire\Pkl\Create::class)->name('pklCreate');
 });
