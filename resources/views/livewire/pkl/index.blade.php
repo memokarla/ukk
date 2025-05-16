@@ -1,9 +1,23 @@
 <!-- Close your eyes. Count to one. That is how long forever feels.  -->
 <div>
 
+    <!-- Notifikasi pesan sukses / error -->
+    @if (session()->has('success'))
+        <div class="bg-green-100 text-green-700 px-4 py-2 rounded-md mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="bg-red-100 text-red-700 px-4 py-2 rounded-md mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="m-4">
         <div class="flex justify-between mb-4">
-            <a href="{{ route('pklCreate') }}" type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-1.5">
+            <a href="{{ route('pklCreate') }}" type="button" 
+            class="text-center text-[#F6F7EF] bg-[#2E7D65] hover:bg-[#256D58] font-medium rounded-lg text-sm py-2.5 px-6">
                 Tambahkan Data PKL
             </a>
         
@@ -29,6 +43,9 @@
                             No
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            NIS
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Nama
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -47,6 +64,9 @@
                         <th scope="col" class="px-6 py-3">
                             Selesai
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Durasi
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +75,10 @@
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $pkl->id }}
                             </th>
+                            <td class="px-6 py-4">
+                                {{ $pkl->siswa->nis }} 
+                                <!-- siswa ini merupakan nama relasinya ya -->
+                            </td>
                             <td class="px-6 py-4">
                                 {{ $pkl->siswa->nama }} 
                                 <!-- siswa ini merupakan nama relasinya ya -->
@@ -73,6 +97,9 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ \Carbon\Carbon::parse($pkl->selesai)->format('d F Y') }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ \Carbon\Carbon::parse($pkl->mulai)->diffInDays(\Carbon\Carbon::parse($pkl->selesai)) }} hari
                             </td>
                         </tr>
                     @empty

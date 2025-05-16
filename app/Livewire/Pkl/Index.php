@@ -10,29 +10,42 @@ use App\Models\Industri;
 
 class Index extends Component
 {
-    public $siswa = null;
-    public $guru = null;
-    public $industri = null;
     public $search = '';
 
     public function render()
     {
-        $pkls = Pkl::with(['siswa', 'guru', 'industri'])
-            ->when($this->siswa, fn($query) => $query->where('siswa_id', $this->siswa))
-            ->when($this->guru, fn($query) => $query->where('guru_id', $this->guru))
-            ->when($this->industri, fn($query) => $query->where('industri_id', $this->industri))
-            ->when($this->search, fn($query) => $query->where('mulai', 'like', "%{$this->search}%"))
-            ->when($this->search, fn($query) => $query->where('selesai', 'like', "%{$this->search}%"))->when($this->search, function ($query) {
-                $query->whereHas('siswa', fn($q) =>
-                    $q->where('nama', 'like', "%{$this->search}%")
-                )->orWhereHas('guru', fn($q) =>
-                    $q->where('nama', 'like', "%{$this->search}%")
-                )->orWhereHas('industri', fn($q) =>
-                    $q->where('nama', 'like', "%{$this->search}%")
-                );
-            })
-            ->get();
+        // Ambil data PKL dan cari berdasarkan relasi
+        $pklsQuery = Pkl::with(['siswa', 'guru', 'industri']);
 
-        return view('livewire.pkl.index', compact('pkls'));
+        if (!empty($this->search)) {
+            $pklsQuery->where(function ($query) {
+                $query->whereHas('siswa', function ($q) {
+                    $q->where('nis', 'like', '%' . $this->search . '%')
+                        ->orWhere('nama', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('guru', function ($q) {
+                    $q->where('nama', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('industri', function ($q) {
+                    $q->where('nama', 'like', '%' . $this->search . '%')
+                        ->orWhere('bidang_usaha', 'like', '%' . $this->search . '%');
+                });
+            });
+        }
+
+        $pkls = $pklsQuery->get();
+
+        // Ambil semua data siswa, guru, industri untuk dropdown (tanpa filter pencarian)
+        $siswas = Siswa::all();
+        $gurus = Guru::all();
+        $industris = Industri::all();
+
+        return view('livewire.pkl.index', [
+            'pkls' => $pkls,
+            'siswas' => $siswas,
+            'gurus' => $gurus,
+            'industris' => $industris,
+        ]);
     }
+
 }
