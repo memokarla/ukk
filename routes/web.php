@@ -19,9 +19,11 @@ Route::middleware([
     'CheckUserRoles:super_admin', 
     'CheckUserRoles:siswa', 
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+
+    Route::get('/dashboard', App\Livewire\Dashboard\Index::class)->name('dashboard');
 
     // PKL
     Route::get('/dataPkl', App\Livewire\Pkl\Index::class)->name('pkl');
