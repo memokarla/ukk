@@ -67,6 +67,9 @@
                         <th scope="col" class="px-6 py-3">
                             Durasi
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                             <span class="sr-only">Aksi</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,6 +103,34 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ \Carbon\Carbon::parse($pkl->mulai)->diffInDays(\Carbon\Carbon::parse($pkl->selesai)) }} hari
+                            </td>
+                            <td class="px-6 py-4 cursor-pointer text-white font-medium">
+                                <!-- membuat tautan ke rute pklView (di web.php) dengan id dari data $pkl -->
+                                <a href="{{ route('pklView', ['id' => $pkl->id]) }}" 
+                                class="bg-[#10B981] hover:bg-[#059669] py-2 px-4 rounded-lg">View</a>
+
+                                <!-- menyimpan data pengguna yang sedang login ke $user -->
+                                @php
+                                    $user = Auth::user();
+                                @endphp
+
+                                <!-- $user -->
+                                    <!-- ini ni dari varibel yang kita buat di atas, data pengguna yang sedang login saat ini -->
+                                <!-- operator && -->
+                                    <!-- jika 1 salah, maka salah -->
+                                    <!-- jika user belum login, maka ini tidak bisa dijalankan -->
+                                <!-- $user->email -->
+                                    <!-- properti (nilai) email dari pengguna yang sedang login -->
+                                    <!-- misalnya pengguna login dengan karla@gmail.com, maka Auth::user()->email (alias $user->email) nilainya "karla@gmail.com" -->
+                                <!-- $pkl->siswa->email -->
+                                    <!-- ->siswa adalah relasi Eloquent antara tabel pkl dan siswa -->
+                                    <!-- ambil email siswa dari relasi tadi -->
+                                @if ($user && $user->email === $pkl->siswa->email)
+                                    <!-- tombol Edit hanya muncul jika email user = email siswa -->
+                                    <a href="{{ route('pklEdit', ['id' => $pkl->id]) }}" 
+                                        class="bg-[#FBBF24] hover:bg-[#F59E0B] py-2 px-4 rounded-lg">Edit</a>
+                                @endif
+
                             </td>
                         </tr>
                     @empty

@@ -5,6 +5,7 @@ namespace App\Livewire\Pkl;
 use Livewire\Component;
 use App\Models\Pkl;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Guru;
 use App\Models\Industri;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,33 @@ use Illuminate\Support\Facades\DB;
 class Create extends Component
 {
     public $siswa_id, $guru_id, $industri_id, $mulai, $selesai;
+
+    // menyimpan nama siswa yang sedang login
+    public $nama_siswa;
+
+    // otomatis dijalankan saat komponen Livewire dibuat, mount ini yang pertama
+    public function mount()
+    {
+
+        // ambil email user yang sedang login
+        // ini mengambil data dari tabel users
+        // sistem autentikasi Laravel secara default menggunakan model App\Models\User yang terkait langsung dengan tabel users
+        $userEmail = Auth::user()->email;
+
+        // cari data siswa berdasarkan email
+        // Siswa::where('email', $userEmail) : berarti, pada model Siswa, pada database siswas, cari email berdasarkan $userEmail (mengambil email user yang sedang login)
+        // nilainya akan disimpan di $siswa
+        $siswa = Siswa::where('email', $userEmail)->first();
+
+        // email cocok (di $siwa tadi)
+        if ($siswa) {
+            // aka:
+            // simpan ID siswa ($siswa->id) ke $siswa_id (dipakai untuk input form tersembunyi)
+            $this->siswa_id = $siswa->id;
+            // simpan nama ($siswa->nama) ke $nama_siswa (dipakai untuk ditampilkan)
+            $this->nama_siswa = $siswa->nama;
+        }
+    }
 
     // fungsi yang akan dipanggil ketika user menekan button Tambahkan, kan di buttton view ada wire:click="create", nah itu ini
     public function create() {
@@ -65,17 +93,21 @@ class Create extends Component
 
     public function render()
     {
-        // Ambil semua data siswa, guru, industri untuk dropdown (tanpa filter pencarian)
+        // Ambil semua data guru, industri untuk dropdown (tanpa filter pencarian)
         $pkls = Pkl::all(); 
-        $siswas = Siswa::all(); 
+        // $siswas = Siswa::all(); 
         $gurus = Guru::all();
         $industris = Industri::all();
 
         return view('livewire.pkl.create', [
             'pkls' => $pkls,
-            'siswas' => $siswas,
+            // 'siswas' => $siswas,
             'gurus' => $gurus,
             'industris' => $industris,
         ]);
+
+        // $siswas = Siswa::all(); 
+        // 'siswas' => $siswas,
+        // di komenkan, karena kemarin digunakan untuk dropwodn, nampilin SEMUA namanya, namun sekarang SATU nama berdasarkan login
     }
 }

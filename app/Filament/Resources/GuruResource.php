@@ -128,12 +128,49 @@ class GuruResource extends Resource
                     Tables\Actions\ViewAction::make(),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+             ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make()
+                    // collection $records: daftar semua baris (record) yang dipilih oleh user
+                    // Filament mengirim data yang DIPILIH dalam bentuk Collection, bukan array biasa
+                    ->action(function (\Illuminate\Support\Collection $records) {
+
+                        // kan ini bulkAction ya, aksi massal, ini tu yang checkbox itu, jadi bisa multiple select
+                        // makannya kita menggunakan Collection seperti di atas, kita bisa milih banyak
+                        // $records: sebuah koleksi data (biasanya array atau Collection), misalnya semua guru yang dipilih user di tabel
+                        // as $record: setiap item tunggal dari koleksi tersebut akan ditampung ke variabel $record
+                        foreach ($records as $record) {
+                            // memanggil method deleteGuru() untuk tiap data guru yang dipilih
+                            static::deleteGuru($record);
+                        }
+                    }),
             ]);
     }
+
+    // fungsi inilah yang dijalankan ketika tombol hapus diklik
+    protected static function deleteGuru($record) 
+    {
+        if ($record->pkl()->exists()) {
+            \Filament\Notifications\Notification::make()
+            // $record->pkl() = mengambil relasi pkl yang terkait dengan guru tersebut (berdasarkan hasMany di model guru)
+            // ->exists() = Mengecek apakah ada data pkls yang masih menggunakan merk ini.
+            // jika ada, pkl yang menggunakan guru ini, penghapusan dibatalkan, dan muncul notifikasi error.
+                ->title('Gagal menghapus!')
+                ->body('Guru ini masih digunakan dalam PKL. Hapus PKL terkait terlebih dahulu.')
+                ->danger() // merah
+                ->send();
+            return;
+        }
+
+        // jika guru tidak digunakan dalam PKL, maka datanya     akan dihapus
+        $record->delete();
+
+        \Filament\Notifications\Notification::make()
+            ->title('Guru dihapus!')
+            ->body('Guru berhasil dihapus.')
+            ->success() // hijau
+            ->send();
+    }
+
 
     public static function getRelations(): array
     {

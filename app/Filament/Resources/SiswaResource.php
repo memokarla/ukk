@@ -28,7 +28,7 @@ class SiswaResource extends Resource
 
                     Forms\Components\Grid::make(2) // form dibagi jadi 2 kolom per baris
                         ->schema([
-                           // foto
+                            // foto
                             Forms\Components\FileUpload::make('foto')
                                 ->label('Foto Siswa')
                                 ->image() // Menjadikan file yang di-upload sebagai foto
@@ -175,10 +175,46 @@ class SiswaResource extends Resource
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    // collection $records: daftar semua baris (record) yang dipilih oleh user
+                    // Filament mengirim data yang DIPILIH dalam bentuk Collection, bukan array biasa
+                    ->action(function (\Illuminate\Support\Collection $records) {
+
+                        // kan ini bulkAction ya, aksi massal, ini tu yang checkbox itu, jadi bisa multiple select
+                        // makannya kita menggunakan Collection seperti di atas, kita bisa milih banyak
+                        // $records: sebuah koleksi data (biasanya array atau Collection), misalnya semua siswa yang dipilih user di tabel
+                        // as $record: setiap item tunggal dari koleksi tersebut akan ditampung ke variabel $record
+                        foreach ($records as $record) {
+                            // memanggil method deleteSiswa() untuk tiap data siswa yang dipilih
+                            static::deleteSiswa($record);
+                        }
+                    }),
             ]);
+    }
+
+    // fungsi inilah yang dijalankan ketika tombol hapus diklik
+    protected static function deleteSiswa($record) 
+    {
+        if ($record->pkl()->exists()) {
+            \Filament\Notifications\Notification::make()
+            // $record->pkl() = mengambil relasi pkl yang terkait dengan siswa tersebut (berdasarkan hasMany di model siswa)
+            // ->exists() = Mengecek apakah ada data pkls yang masih menggunakan merk ini.
+            // jika ada, pkl yang menggunakan siswa ini, penghapusan dibatalkan, dan muncul notifikasi error.
+                ->title('Gagal menghapus!')
+                ->body('Siswa ini masih digunakan dalam PKL. Hapus PKL terkait terlebih dahulu.')
+                ->danger() // merah
+                ->send();
+            return;
+        }
+
+        // jika siswa tidak digunakan dalam PKL, maka datanya     akan dihapus
+        $record->delete();
+
+        \Filament\Notifications\Notification::make()
+            ->title('Siswa dihapus!')
+            ->body('Siswa berhasil dihapus.')
+            ->success() // hijau
+            ->send();
     }
 
     public static function getRelations(): array

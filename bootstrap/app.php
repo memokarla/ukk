@@ -12,7 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // ini untuk mengenalkan middleware dengan nama alias
+        $middleware->alias([
+            // 'CheckUserRoles' ini merupakan nama nya, jadi sebenarnya bebas, bisa sekadar Role, apapun
+            'CheckUserRoles' => \App\Http\Middleware\CheckUserRoles::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

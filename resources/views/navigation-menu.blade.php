@@ -17,6 +17,27 @@
                     </x-nav-link>
                 </div>
 
+                <!-- Guru -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('guru') }}" :active="request()->routeIs('guru')">
+                        {{ __('Guru') }}
+                    </x-nav-link>
+                </div>
+
+                <!-- Siswa -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('siswa') }}" :active="request()->routeIs('siswa')">
+                        {{ __('Siswa') }}
+                    </x-nav-link>
+                </div>
+
+                <!-- Industri -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('industri') }}" :active="request()->routeIs('industri')">
+                        {{ __('Industri') }}
+                    </x-nav-link>
+                </div>
+
                 <!-- PKL -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('pkl') }}" :active="request()->routeIs('pkl')">
@@ -122,7 +143,7 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
+                                        @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -183,7 +204,7 @@
                     @csrf
 
                     <x-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
+                                @click.prevent="$root.submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
