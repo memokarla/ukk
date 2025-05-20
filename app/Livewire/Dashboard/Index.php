@@ -5,12 +5,14 @@ namespace App\Livewire\Dashboard;
 use Livewire\Component;
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Index extends Component
 {
     public $chartData;
     public $chartDataRombelA;
     public $chartDataRombelB;
+    public $chartDataIndustri;
 
     // as we know ya, saat komponen livewire dipanggil, ini akan dipanggil otomatis
     public function mount()
@@ -18,6 +20,7 @@ class Index extends Component
         $this->loadChartData(); // ini merupakan function yang kita panggil, setelah kita membuatnya di bawah ini
         $this->loadChartDataRombelA(); 
         $this->loadChartDataRombelB(); 
+        $this->loadChartDataIndustri(); 
     }
 
     // ini fungsi yang kita buat, jadi namanya custom, bisa saja ambilData
@@ -69,6 +72,30 @@ class Index extends Component
         ];
     }
 
+    public function loadChartDataIndustri()
+    {
+        // ambil data dari table pkls
+        $data = DB::table('pkls')
+            // join() menggabungkan dengan tabel industris berdasarkan industri_id, kan di table pkls ada fk berupa ini
+            ->join('industris', 'pkls.industri_id', '=', 'industris.id')    // sintaknya    = $table, Tabel yang ingin dijoin (industris)
+                                                                            //              = $first, Kolom dari tabel utama (pkls.industri_id')
+                                                                            //              = $operator, Operator perbandingan (=, !=, dll.) (= membandingkan apakah sama)
+                                                                            //              = $second, Kolom dari tabel yang dijoin (industris.id)
+            // memilih nama industri dan menghitung total siswa (count(pkls.siswa_id))
+            ->select('industris.nama as industri', DB::raw('count(pkls.siswa_id) as jumlah_siswa')) 
+            // mengelompokkan berdasarkan industri agar per-industri dihitung jumlah siswanya
+            ->groupBy('industris.id', 'industris.nama')
+            ->get();
+
+        // header grafik: kolom pertama "Industri", kolom kedua "Jumlah Siswa"
+        $this->chartDataIndustri = [['Industri', 'Jumlah Siswa']];
+
+        // setiap baris ditambahkan ke chartDataIndustri dalam format: ['Nama Industri', jumlah_siswa]
+        foreach ($data as $row) {
+            $this->chartDataIndustri[] = [$row->industri, $row->jumlah_siswa];
+        }
+    }
+
     public function render()
     {
         // ambil email user yang sedang login
@@ -86,6 +113,7 @@ class Index extends Component
             'chartData' => $this->chartData,
             'chartDataRombelA' => $this->chartDataRombelA,
             'chartDataRombelB' => $this->chartDataRombelB,
+            'chartDataIndustri' => $this->chartDataIndustri,
         ]);
     }
 }

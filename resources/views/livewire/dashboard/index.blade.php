@@ -143,6 +143,36 @@
             </script>
         </div>
 
+        <!-- Bar Chart -->
+        <div class="mb-4">
+            <div id="chart_industri" style="width: 100%; height: 400px;"></div>
+            <script type="text/javascript">
+                google.charts.load('current', { packages: ['corechart'] });
+                google.charts.setOnLoadCallback(drawChartIndustri);
+
+                function drawChartIndustri() {
+                    const data = google.visualization.arrayToDataTable(@json($chartDataIndustri));
+
+                    const options = {
+                        title: 'Jumlah Siswa per Industri',
+                        legend: { position: 'none' },
+                        hAxis: {
+                            title: 'Industri',
+                            textStyle: { fontSize: 10 }
+                        },
+                        vAxis: {
+                            title: 'Jumlah Siswa',
+                            minValue: 0
+                        }
+                    };
+
+                    const chart = new google.visualization.ColumnChart(document.getElementById('chart_industri'));
+                    chart.draw(data, options);
+                }
+            </script>
+        </div>
+
+
     </div>
 
 </div>
