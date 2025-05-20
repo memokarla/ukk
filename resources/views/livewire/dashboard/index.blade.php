@@ -1,5 +1,5 @@
 <!-- The Master doesn't talk, he acts. -->
-<div>
+<div class="pt-16">
 
     <div class="m-4 flex flex-col gap-y-4">
 
@@ -7,27 +7,23 @@
         <div class="rounded-lg bg-white flex justify-between shadow-sm">
             <div class="mx-6 my-4 flex justify-center items-center">
                 @if ($siswa)
-                    <div class="bg-yellow-500/50 p-6 rounded-lg shadow-md">
-                        <h2 class="text-lg font-semibold mb-4">Hai, {{ $siswa->nama }} 👋</h2>
+                    <div class="p-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Hai, {{ $siswa->nama }}</h2>
 
                         @if ($siswa->status_lapor_pkl)
                             <!-- Jika sudah kirim data PKL -->
-                            <p class="mb-4 text-green-700">
-                                Terima kasih!
-                                <br>
-                                Kamu sudah mengirim data PKL. 🎉
+                            <p class="mb-4 text-yellow-800 text-lg">
+                                Terima kasih! Kamu sudah mengirim data PKL.
                             </p>
-                            <a href="/dataPkl" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                            <a href="{{ route('pkl') }}" class="inline-block bg-[#FCD34D] text-white px-4 py-2 rounded hover:bg-yellow-300 transition-colors">
                                 Lihat atau perbarui data PKL
                             </a>
                         @else
                             <!-- Jika belum kirim data PKL -->
-                            <p class="mb-4 text-yellow-800">
-                                Kamu belum mengirim data PKL. 
-                                <br>
-                                Yuk segera lengkapi datamu biar prosesnya lancar! ⏳
+                            <p class="mb-4 text-gray-800 text-lg">
+                                Kamu belum mengirim data PKL. Yuk segera lengkapi datamu biar prosesnya lancar!
                             </p>
-                            <a href="/dataPkl" class="inline-block bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                            <a href="{{ route('pkl') }}" class="inline-block bg-gray-500 text-white px-4 py-2 rounded hover:bg-[#9CA3AF] transition-colors">
                                 Isi Data PKL Sekarang
                             </a>
                         @endif
@@ -49,11 +45,71 @@
             </div>
         </div>
 
+        <!-- Card Guru, Siswa, Industri -->
+        <div class="flex gap-4">
+            <!-- guru -->
+            <div class="card flex-1 p-4 bg-[#60A5FA] rounded-lg shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-2xl font-semibold text-white">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>
+                        Jumlah Guru
+                    </div>
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white text-[#60A5FA] text-2xl font-bold shadow-md ring-2 ring-white">
+                        {{ $jumlahGuru }}
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <a href="{{ route('guru') }}" class="bg-white text-[#60A5FA] px-4 py-2 rounded hover:bg-blue-100 transition font-medium">
+                        Lihat Guru
+                        <i class="ml-2 fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- siswa -->
+            <div class="card flex-1 p-4 bg-[#34D399] rounded-lg shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-2xl font-semibold text-white">
+                        <i class="fas fa-user-graduate mr-2"></i>
+                        Jumlah Siswa
+                    </div>
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white text-[#34D399] text-2xl font-bold shadow-md ring-2 ring-white">
+                        {{ $jumlahSiswa }}
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <a href="{{ route('siswa') }}" class="bg-white text-[#34D399] px-4 py-2 rounded hover:bg-green-100 transition font-medium">
+                        Lihat Siswa
+                        <i class="ml-2 fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- industri -->
+            <div class="card flex-1 p-4 bg-[#FCD34D] rounded-lg shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-2xl font-semibold text-white">
+                        <i class="fas fa-briefcase mr-2"></i>
+                        Jumlah Industri
+                    </div>
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white text-[#FCD34D] text-2xl font-bold shadow-md ring-2 ring-white">
+                        {{ $jumlahIndustri }}
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <a href="{{ route('industri') }}" class="bg-white text-[#FCD34D] px-4 py-2 rounded hover:bg-yellow-100 transition font-medium">
+                        Lihat Industri
+                        <i class="ml-2 fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- Pie Chart -->
-        <div class="flex flex-wrap gap-4 justify-between">
+        <div class="flex gap-4">
             <!-- Chart -->
             <!-- ada id kan, nah ini untuk memberi identitas agar kelak dapat dipanggil oleh scriptnya -->
-            <div id="chart_pkl" class=""></div>
+            <div id="chart_pkl" class="card flex-1 shadow-sm"></div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
                 // load library Google ChartJs
@@ -72,8 +128,8 @@
 
                     const options = {
                         title: 'Status Pengisian PKL', // judul
-                        pieHole: 0.4, // ini besarnya lubang, jika tanpa maka full bunder
-                        colors: ['#4ade80', '#60a5fa', '#f87171'],  // warna, urutannya berdasarkan logika kita
+                        // pieHole: 0.4, // ini besarnya lubang, jika tanpa maka full bunder
+                        colors: ['#60A5FA', '#34D399', '#9CA3AF'],  // warna, urutannya berdasarkan logika kita
                     };
 
                     // ini untuk buat 'kanvas' nya
@@ -91,7 +147,7 @@
             </script>
 
             <!-- Chart Rombel A -->
-            <div id="chart_pkl_rombelA" class=""></div>
+            <div id="chart_pkl_rombelA" class="card flex-1 shadow-sm"></div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
                 google.charts.load('current', { 
@@ -108,7 +164,7 @@
                     const options = {
                         title: 'Status Pengisian PKL Rombel A', 
                         pieHole: 0.4, 
-                        colors: ['#4ade80', '#60a5fa'],  
+                        colors: ['#60A5FA', '#9CA3AF'],  
                     };
 
                     const chart = new google.visualization.PieChart(document.getElementById('chart_pkl_rombelA'));
@@ -117,7 +173,7 @@
             </script>
 
             <!-- Chart Rombel B -->
-            <div id="chart_pkl_rombelB" class=""></div>
+            <div id="chart_pkl_rombelB" class="card flex-1 shadow-sm"></div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
                 google.charts.load('current', { 
@@ -134,7 +190,7 @@
                     const options = {
                         title: 'Status Pengisian PKL Rombel B', 
                         pieHole: 0.4, 
-                        colors: ['#4ade80', '#60a5fa'],  
+                        colors: ['#34D399', '#9CA3AF'],  
                     };
 
                     const chart = new google.visualization.PieChart(document.getElementById('chart_pkl_rombelB'));
@@ -145,7 +201,7 @@
 
         <!-- Bar Chart -->
         <div class="mb-4">
-            <div id="chart_industri" style="width: 100%; height: 400px;"></div>
+            <div id="chart_industri" style="width: 100%; height: 400px;" class="shadow-sm"></div>
             <script type="text/javascript">
                 google.charts.load('current', { packages: ['corechart'] });
                 google.charts.setOnLoadCallback(drawChartIndustri);
@@ -155,6 +211,7 @@
 
                     const options = {
                         title: 'Jumlah Siswa per Industri',
+                        colors: ['#FCD34D'], 
                         legend: { position: 'none' },
                         hAxis: {
                             title: 'Industri',
@@ -174,5 +231,8 @@
 
 
     </div>
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Xx..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </div>

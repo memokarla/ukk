@@ -4,11 +4,16 @@ namespace App\Livewire\Dashboard;
 
 use Livewire\Component;
 use App\Models\Siswa;
+use App\Models\Guru;
+use App\Models\Industri;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Index extends Component
 {
+    public $jumlahGuru;
+    public $jumlahSiswa;
+    public $jumlahIndustri;
     public $chartData;
     public $chartDataRombelA;
     public $chartDataRombelB;
@@ -17,10 +22,18 @@ class Index extends Component
     // as we know ya, saat komponen livewire dipanggil, ini akan dipanggil otomatis
     public function mount()
     {
+        $this->loadDashboardData(); 
         $this->loadChartData(); // ini merupakan function yang kita panggil, setelah kita membuatnya di bawah ini
         $this->loadChartDataRombelA(); 
         $this->loadChartDataRombelB(); 
         $this->loadChartDataIndustri(); 
+    }
+
+    public function loadDashboardData()
+    {
+        $this->jumlahGuru = Guru::count();
+        $this->jumlahSiswa = Siswa::count();
+        $this->jumlahIndustri = Industri::count();
     }
 
     // ini fungsi yang kita buat, jadi namanya custom, bisa saja ambilData
@@ -50,7 +63,6 @@ class Index extends Component
         $sijaA_sudah = Siswa::where('rombel', 'SIJA A')->where('status_lapor_pkl', true)->count();
         $sijaA_belum = Siswa::where('rombel', 'SIJA A')->where('status_lapor_pkl', false)->count();
 
-
         $this->chartDataRombelA = [
             ['Kategori', 'Jumlah'],
             ['SIJA A - Sudah', $sijaA_sudah],
@@ -63,7 +75,6 @@ class Index extends Component
         // pada model Siswa yang membaca database siswas, ambil rombel dengan data SIJA A, dan yang memiliki status_lapor_pkl true, simpah ke $sijaA_sudah
         $sijaB_sudah = Siswa::where('rombel', 'SIJA B')->where('status_lapor_pkl', true)->count();
         $sijaB_belum = Siswa::where('rombel', 'SIJA B')->where('status_lapor_pkl', false)->count();
-
 
         $this->chartDataRombelB = [
             ['Kategori', 'Jumlah'],
@@ -110,6 +121,9 @@ class Index extends Component
 
         return view('livewire.dashboard.index', [
             'siswa' => $siswa,
+            'jumlahGuru' => $this->jumlahGuru,
+            'jumlahSiswa' => $this->jumlahSiswa,
+            'jumlahIndustri' => $this->jumlahIndustri,
             'chartData' => $this->chartData,
             'chartDataRombelA' => $this->chartDataRombelA,
             'chartDataRombelB' => $this->chartDataRombelB,

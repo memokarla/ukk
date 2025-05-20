@@ -1,11 +1,11 @@
 <!-- Knowing others is intelligence; knowing yourself is true wisdom. -->
-<div>
+<div class="pt-16">
 
     <div class="m-4">
         <!-- search dan add industri-->
         <div class="flex justify-between mb-4">
             <a href="{{ route('industriCreate') }}" type="button" 
-            class="text-center text-[#F6F7EF] bg-[#2E7D65] hover:bg-[#256D58] font-medium rounded-lg text-sm py-2.5 px-6">
+            class="text-center text-white bg-[#FCD34D] hover:bg-yellow-500 font-medium rounded-lg text-sm py-2.5 px-6">
                 Tambahkan Industri
             </a>
         
@@ -17,18 +17,18 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
-                    <input type="search" id="default-search" class="block w-full ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
+                    <input type="search" id="default-search" class="block w-full ps-10 text-sm text-gray-900 border border-yellow-300 rounded-lg bg-gray-50 focus:ring-yellow-500 focus:border-yellow-500" 
                     wire:model.live="search" placeholder="Search" required />
                 </div>
             </form>
         </div>
 
         <div class="shadow-md rounded-xl">
-            <div class="py-4 px-8 text-[#F6F7EF] bg-[#2E7D65] rounded-t-xl font-medium text-lg">
+            <div class="py-2 px-8 text-white bg-[#FCD34D] rounded-t-xl font-semibold text-lg">
                 Industri
             </div>
             @forelse($industris as $industri)
-                <div class="px-8 py-4 flex gap-8 rounded-b-xl border-t border-t-[#2E7D65] bg-[#F6F7EF]">
+                <div class="px-8 py-4 flex gap-8 rounded-b-xl border-t border-t-[#FCD34D] bg-white">
                     <div class="">
                         <img src="{{ asset('storage/' . $industri->foto) }}"
                         class="w-24 h-28 rounded-md shadow-xl">
@@ -41,19 +41,19 @@
                             {{ $industri->bidang_usaha }}
                         </div>
                         <div class="text-base font-regular">
-                            <i class="fas fa-phone-alt pr-2 text-[#2E7D65]"></i>
+                            <i class="fas fa-phone-alt pr-2 text-[#FCD34D]"></i>
                             {{ $industri->kontak }}
                         </div>
                         <div class="text-base font-regular">
-                            <i class="fas fa-envelope pr-2 text-[#2E7D65]"></i>
+                            <i class="fas fa-envelope pr-2 text-[#FCD34D]"></i>
                             {{ $industri->email }}
                         </div>
                         <div class="text-base font-regular">
-                            <i class="fas fa-globe pr-2 text-[#2E7D65]"></i>
+                            <i class="fas fa-globe pr-2 text-[#FCD34D]"></i>
                             {{ $industri->website }}
                         </div>
                         <div class="text-base font-regular mt-4">
-                            <i class="fas fa-map-marker-alt pr-2 text-[#2E7D65]"></i>
+                            <i class="fas fa-map-marker-alt pr-2 text-[#FCD34D]"></i>
                             {{ $industri->alamat }}
                         </div>
                     </div>
