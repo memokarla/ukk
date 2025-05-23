@@ -182,7 +182,7 @@
                                 <img class="rounded-full w-12 h-12 object-contain" 
                                 src="{{ $siswa->foto && file_exists(storage_path('app/public/' . $siswa->foto)) 
                                 ? asset('storage/' . $siswa->foto) 
-                                : asset('storage/siswa/siswa.png') }}" 
+                                : asset('images/siswa.png') }}" 
                                 alt="foto siswa" />
                             </td>
                             <td class="px-6 py-4">

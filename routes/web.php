@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingPage');
 });
 
-Route::get('/menungguAksesAdmin', function () {
-    return view('menunggu');  // view yang berisi pesan akses ditolak
-})->name('menungguAdmin');
+Route::get('/menungguAksesAdmin', App\Livewire\MenungguAkses::class)
+    ->middleware('auth')
+    ->name('menungguAdmin');
 
 Route::middleware([
     'auth:sanctum',

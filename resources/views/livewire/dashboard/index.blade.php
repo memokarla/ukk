@@ -40,7 +40,7 @@
                 <img class="rounded-xl w-56 h-56 object-contain" 
                 src="{{ $siswa->foto && file_exists(storage_path('app/public/' . $siswa->foto)) 
                 ? asset('storage/' . $siswa->foto) 
-                : asset('storage/siswa/siswa.png') }}" 
+                : asset('images/siswa.png') }}" 
                 alt="foto siswa" />
             </div>
         </div>
