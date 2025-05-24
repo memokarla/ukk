@@ -149,7 +149,7 @@ class GuruResource extends Resource
     // fungsi inilah yang dijalankan ketika tombol hapus diklik
     protected static function deleteGuru($record) 
     {
-        if ($record->pkl()->exists()) {
+        if ($record->pkls()->exists()) {
             \Filament\Notifications\Notification::make()
             // $record->pkl() = mengambil relasi pkl yang terkait dengan guru tersebut (berdasarkan hasMany di model guru)
             // ->exists() = Mengecek apakah ada data pkls yang masih menggunakan merk ini.
