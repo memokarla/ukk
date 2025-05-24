@@ -28,7 +28,8 @@
                 Industri
             </div>
             @forelse($industris as $industri)
-                <div class="px-8 py-4 flex gap-8 rounded-b-xl border-t border-t-[#FCD34D] bg-white">
+            <div class="flex justify-between px-8 py-4 rounded-b-xl border-t border-t-[#FCD34D] bg-white">
+                <div class="flex gap-8">
                     <div class="">
                         <img src="{{ asset('storage/' . $industri->foto) }}"
                         class="w-24 h-28 rounded-md shadow-xl">
@@ -58,6 +59,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="flex justify-end items-center">
+                    <a href="{{ route('industriEdit', ['id' => $industri->id]) }}" class="bg-[#FBBF24] hover:bg-[#F59E0B] py-2 px-4 rounded-lg text-white">Edit</a>
+                </div>
+            </div>
             @empty
                 <h1>Data Industri Belum Ditemukan, Kamu Bisa Menambahkannya!</h1>
             @endforelse
