@@ -19,7 +19,7 @@
             </style>
         @endif
     </head>
-    <body class="text-[#1b1b18] flex min-h-screen flex-col">
+    <body class="text-[#1b1b18] flex min-h-screen flex-col pb-12">
 
         <!-- <header class="w-full text-sm mb-6 not-has-[nav]:hidden"> -->
         <header class="w-full text-sm fixed z-50 top-0 bg-white border-b border-gray-100 shadow-md">
@@ -46,7 +46,7 @@
                         @else
                             <a
                                 href="{{ route('login') }}"
-                                class="inline-block px-5 py-1.5 text-gray-700 border border-transparent hover:border-[#19140035] hover:bg-[#FCD34D] rounded-xl text-sm leading-normal transition-colors duration-200"
+                                class="inline-block px-5 py-1.5 text-gray-700 hover:border-[#FCD34D] rounded-xl text-sm leading-normal transition-colors duration-200"
                             >
                                 Log in
                             </a>
@@ -65,32 +65,172 @@
         </header>
 
         <!-- CONTECT -->
-        <div class="pt-16">
+        <div class="pt-16 flex flex-col gap-y-4">
 
             <!-- HERO SECTION -->
-            <div class="">
+            <div class="md:pt-4">
 
-                <h1 class="text-bold">Dashboard PKL
-                    <br>
-                    <span>SIJA'26</span>
-                </h1>
-                <p>Telusuri data siswa, data guru, data industri, dan progres kegiatan Praktik Kerja Lapangan (PKL) jurusan Sistem Informasi Jaringan Aplikasi.</p>
-                <!-- CAROUSEL -->
-                <div class="relative overflow-hidden">
-                    <div class="whitespace-nowrap animate-marquee flex gap-2 py-10">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-one.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-two.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-three.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-four.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-five.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-one.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-two.webp" alt="">    
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-three.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-four.webp" alt="">
-                        <img class="inline-block h-96 object-cover rounded-lg" src="https://tlfolio.netlify.app/images/me/show-five.webp" alt="">
+                <!-- DESC -->
+                <div class="flex flex-col md:flex-row items-center justify-center px-4 md:px-20 mt-10">
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <h1 class="text-bold text-center text-xl md:text-2xl font-medium text-gray-700">
+                            Dashboard PKL
+                                <br>
+                            <span class="text-transparent bg-clip-text font-extrabold text-6xl md:text-8xl bg-gradient-to-r from-[#FCD34D] to-[#60A5FA]">
+                                SIJA'26
+                            </span>
+                        </a>
+                        </h1>
+                    </div>
+                    <div class="text-sm md:text-base flex-col text-center md:text-left">
+                        <p>
+                            Telusuri data siswa, guru, industri mitra, dan perkembangan kegiatan
+                            <br>
+                            Praktik Kerja Lapangan (PKL) jurusan Sistem Informasi Jaringan dan Aplikasi.
+                        </p>
+                        <div class="mt-2 text-center flex justify-center md:justify-end">
+                            <a href="{{ route('dashboard') }}" 
+                            class="inline-block px-4 py-2 bg-[#FCD34D] text-white text-sm font-semibold rounded-xl hover:bg-yellow-500 transition">
+                                Masuk ke Dashboard
+                            </a>
+                        </div>
                     </div>
                 </div>
 
+                <!-- CAROUSEL -->
+                <div class="relative overflow-hidden">
+                    <div class="whitespace-nowrap animate-marquee flex gap-2 py-10">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider1.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider2.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider3.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider4.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider5.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider6.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider7.jpg') }}" alt="">
+
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider1.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider2.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider3.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider4.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider5.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider6.jpg') }}" alt="">
+                        <img class="inline-block h-80 object-cover rounded-lg" src="{{ asset('images/sliders/slider7.jpg') }}" alt="">
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="border border-[#FCD34D] mx-12 opacity-50"></div>
+            
+            @livewireStyles
+                @livewire('landing-page')
+            @livewireScripts
+
+            <div class="border border-[#FCD34D] mx-12 opacity-50"></div>
+
+            <!-- SHORT EXPLAIN -->
+            <div class="my-4 text-center flex flex-col gap-y-2">
+                <div class="text-2xl font-bold text-gray-700">
+                    Apa Itu
+                    <span class="text-[#FCD34D]">PKL</span>?
+                </div>
+    
+                <div class="text-sm md:text-base mx-2">
+                    Praktik Kerja Lapangan (PKL) adalah kegiatan belajar di dunia industri nyata 
+                    <br>
+                    yang dilakukan oleh siswa SMK untuk mengasah keterampilan sesuai jurusan masing-masing.
+                </div>
+
+                <!-- list -->
+                <div class="flex flex-col gap-y-2 mt-6">
+                    <div class="bg-[#FDFEFB] px-2 py-1 rounded-md mx-8 md:mx-80">
+                        <!-- dropdownnya -->
+                        <div class="flex justify-between cursor-pointer text-sm md:text-base m-2" data-collapse-toggle="no1">
+                            1. Simulasi Dunia Kerja
+                            <i class="fa-solid fa-chevron-down text-black/70"></i>
+                        </div> 
+    
+                        <!-- detailnya -->
+                        <div id="no1" class="flex flex-col gap-y-1.5 pt-1 m-2 border-t border-[#FCD34D] hidden">
+                            <div class="text-sm md:text-base font-regular flex text-left">
+                                Siswa belajar langsung di lingkungan kerja profesional sesuai bidang keahlian.
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="bg-[#FDFEFB] px-2 py-1 rounded-md mx-8 md:mx-80">
+                        <!-- dropdownnya -->
+                        <div class="flex justify-between cursor-pointer text-sm md:text-base m-2" data-collapse-toggle="no2">
+                            2. Proyek Nyata
+                            <i class="fa-solid fa-chevron-down text-black/70"></i>
+                        </div> 
+    
+                        <!-- detailnya -->
+                        <div id="no2" class="flex flex-col gap-y-1.5 pt-1 m-2 border-t border-[#FCD34D] hidden">
+                            <div class="text-sm md:text-base font-regular flex text-left">
+                                Mengikuti aktivitas dan proyek langsung di perusahaan, seperti pengembangan aplikasi, testing, atau deployment.
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="bg-[#FDFEFB] px-2 py-1 rounded-md mx-8 md:mx-80">
+                        <!-- dropdownnya -->
+                        <div class="flex justify-between cursor-pointer text-sm md:text-base m-2" data-collapse-toggle="no3">
+                            3. Kolaborasi & Komunikasi
+                            <i class="fa-solid fa-chevron-down text-black/70"></i>
+                        </div> 
+    
+                        <!-- detailnya -->
+                        <div id="no3" class="flex flex-col gap-y-1.5 pt-1 m-2 border-t border-[#FCD34D] hidden">
+                            <div class="text-sm md:text-base font-regular flex text-left">
+                                Belajar bekerja dalam tim, mengikuti briefing, dan berkomunikasi dengan klien atau supervisor.
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="bg-[#FDFEFB] px-2 py-1 rounded-md mx-8 md:mx-80">
+                        <!-- dropdownnya -->
+                        <div class="flex justify-between cursor-pointer text-sm md:text-base m-2" data-collapse-toggle="no4">
+                            4. Pengembangan Soft Skill
+                            <i class="fa-solid fa-chevron-down text-black/70"></i>
+                        </div> 
+    
+                        <!-- detailnya -->
+                        <div id="no4" class="flex flex-col gap-y-1.5 pt-1 m-2 border-t border-[#FCD34D] hidden">
+                            <div class="text-sm md:text-base font-regular flex text-left">
+                                Meningkatkan sikap kerja, tanggung jawab, dan etika profesional sebagai bekal menghadapi dunia kerja setelah lulus.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CARD FITUR -->
+            <div class="flex flex-wrap gap-6 justify-center mx-4 rounded-xl bg-[#FCD34D] px-4 py-12">
+                <div class="bg-white w-full md:w-1/4 h-56 rounded-xl p-6 relative shadow-md text-center">
+                    <i class="fas fa-chart-pie text-[#FCD34D] opacity-75 text-4xl mb-6"></i>
+                    <h1 class="text-lg font-semibold mb-2">Dashboard Interaktif</h1>
+                    <p class="text-sm text-gray-700">
+                        Visualisasi data realtime tentang jumlah siswa yang sudah isi data PKL, yang belum, serta data industri dan jumlah peserta per industri.
+                    </p>
+                </div>
+
+                <div class="bg-white w-full md:w-1/4 h-56 rounded-xl p-6 relative shadow-md text-center">
+                    <i class="fas fa-users text-[#FCD34D] opacity-75 text-4xl mb-6"></i>
+                    <h1 class="text-lg font-semibold mb-2">Manajemen Data Siswa, Guru, dan Industri</h1>
+                    <p class="text-sm text-gray-700">
+                        Akses lengkap dan mudah untuk melihat, menambah, dan mengelola data siswa, guru pembimbing, dan industri mitra.
+                    </p>
+                </div>
+
+                <div class="bg-white w-full md:w-1/4 h-56 rounded-xl p-6 relative shadow-md text-center">
+                    <i class="fas fa-search text-[#FCD34D] opacity-75 text-4xl mb-6"></i>
+                    <h1 class="text-lg font-semibold mb-2">Pencarian & Filter Data</h1>
+                    <p class="text-sm text-gray-700">
+                        Memudahkan pengguna untuk mencari dan memfilter daftar siswa, guru, dan industri sesuai kebutuhan dengan cepat.
+                    </p>
+                </div>
             </div>
 
         </div>
@@ -111,7 +251,13 @@
         }
         }
         .animate-marquee {
-        animation: marquee 20s linear infinite;
+        animation: marquee 25s linear infinite;
         }
     </style>
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Xx..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- js flowbite -->
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </html>
