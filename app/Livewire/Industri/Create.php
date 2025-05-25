@@ -10,12 +10,12 @@ class Create extends Component
 {
     use WithFileUploads; // mengaktifkan fitur upload file
 
-    public $gambar, $nama, $bidang_usaha, $website, $alamat, $kontak, $email;
+    public $foto, $nama, $bidang_usaha, $website, $alamat, $kontak, $email;
 
     // fungsi yang akan dipanggil ketika user menekan button Tambahkan, kan di buttton view ada wire:click="create", nah itu ini
     public function create() {
         $this->validate([ // ini semua validasi input
-            'gambar' => 'required|image|max:2048', // harus file gambar, maximal 2mb
+            'foto' => 'required|image|max:2048', // harus file foto, maximal 2mb
             'nama' => 'required',
             'bidang_usaha' => 'required',
             'website' => 'required|url', // berupa url
@@ -24,12 +24,12 @@ class Create extends Component
             'email' => 'required|email', // hanya menerima dalam formal email
         ]);
 
-        // menyimpan file gambar ke folder storage/app/public/industri, dan menyimpan path-nya ke variabel $gambarPath
-        $gambarPath = $this->gambar->store('industri', 'public');
+        // menyimpan file gambar ke folder storage/app/public/industri, dan menyimpan path-nya ke variabel $fotoPath
+        $fotoPath = $this->foto->store('industri', 'public');
         
         // menyimpan data industri baru ke database dengan field yang sudah divalidasi 
         Industri::create([
-            'gambar' => $gambarPath, // file path gambar yang sudah diupload
+            'foto' => $fotoPath, // file path foto yang sudah diupload
             'nama' => $this->nama,
             'bidang_usaha' => $this->bidang_usaha,
             'website' => $this->website,
