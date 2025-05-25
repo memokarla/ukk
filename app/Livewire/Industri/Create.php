@@ -10,7 +10,7 @@ class Create extends Component
 {
     use WithFileUploads; // mengaktifkan fitur upload file
 
-    public $gambar, $nama, $bidang_usaha, $alamat, $kontak, $email;
+    public $gambar, $nama, $bidang_usaha, $website, $alamat, $kontak, $email;
 
     // fungsi yang akan dipanggil ketika user menekan button Tambahkan, kan di buttton view ada wire:click="create", nah itu ini
     public function create() {
