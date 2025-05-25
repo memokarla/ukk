@@ -8,15 +8,15 @@
                 Tambahkan Industri
             </div>
 
-            <!-- gambar -->
+            <!-- foto -->
             <div class="">
                  <form class="w-full">
                     <div class="">
-                        <label for="gambar" class="block mt-4 mb-1 text-lg font-medium text-black/70">Gambar</label>
-                        <input wire:model='gambar' type="file" id="gambar"
+                        <label for="foto" class="block mt-4 mb-1 text-lg font-medium text-black/70">Logo</label>
+                        <input wire:model='foto' type="file" id="foto"
                         class="text-sm rounded-lg block w-full p-2.5 bg-[#E7EBE8] text-black-700 border border-[#FCD34D]
                         focus:ring-[#FCD34D] focus:border-[#FCD34D]
-                                @error('gambar') border-red-600 @enderror" 
+                                @error('foto') border-red-600 @enderror" 
                         required />
                         @error('gambar')
                             <div class="text-red-500">{{ $message }}</div>
