@@ -156,7 +156,9 @@
                             </td>
                         </tr>
                     @empty
-                        <p>Guru tidak terdaftar.</p>
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-gray-500">Guru Tidak Terdaftar</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

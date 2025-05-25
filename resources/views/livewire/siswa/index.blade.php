@@ -208,7 +208,9 @@
                             </td>
                         </tr>
                     @empty
-                        <p>Siswa tidak terdaftar.</p>
+                        <tr>
+                            <td colspan="9" class="text-center py-4 text-gray-500">Siswa Tidak Terdaftar</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

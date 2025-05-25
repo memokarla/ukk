@@ -134,7 +134,9 @@
                             </td>
                         </tr>
                     @empty
-                        <p>Siswa tidak terdaftar.</p>
+                        <tr>
+                            <td colspan="10" class="text-center py-4 text-gray-500">Data PKL Tidak Terdaftar</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

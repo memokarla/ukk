@@ -64,7 +64,9 @@
                 </div>
             </div>
             @empty
-                <h1>Data Industri Belum Ditemukan, Kamu Bisa Menambahkannya!</h1>
+                <div class="text-center py-4 text-gray-500">
+                    <h1>Data Industri Belum Ditemukan, Kamu Bisa Menambahkannya!</h1>
+                </div>
             @endforelse
         </div>
     </div>
