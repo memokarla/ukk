@@ -137,7 +137,7 @@
                     Kembali
                 </a>
 
-                <button wire:click="create" type="submit"
+                <button wire:click="create" type="button"
                     class="text-center text-white bg-[#FCD34D] hover:bg-yellow-500 font-medium rounded-lg text-sm py-2.5 px-6 mt-4">
                     Tambahkan
                 </button>
